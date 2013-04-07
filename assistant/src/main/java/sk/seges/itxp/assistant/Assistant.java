@@ -3,87 +3,48 @@
  */
 package sk.seges.itxp.assistant;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
  * @author ladislav.gazo
  */
-// Ctrl + Shift + o organizes imports
 public class Assistant {
-	private List<String> taskList;
+	private List<Task> taskList;
 	
 	public Assistant() {
-		// convert String array to list
-		taskList = Arrays.asList(new String[] { "call Darth Vader", "program R2D2",
-				"talk to Jabba", "jump into the Heart of Gold",
-				"don't forget your towel" });
+		taskList = new ArrayList<Task>();
+		
+		// nice and clean task list entries
+		addTask("09.04.2013", "call Darth Vader");
+		addTask("10.04.2013", "program R2D2");
+		addTask("12.04.2013", "talk to Jabba");
+		addTask("14.04.2013", "jump into the Heart of Gold");
+		addTask("15.04.2013", "don't forget your towel");
+		
 	}
 	
-	public Assistant(String... taskList) {
-		// introduced different type of list
-		this.taskList = new LinkedList<String>(Arrays.asList(taskList));
+	public Assistant(String dueDate, String... taskList) {
+		this.taskList = new ArrayList<Task>();
+		
+		// all provided tasks are assigned to the same date
+		for(String text : taskList) {
+			addTask(dueDate, text);
+		}
 	}
 	
-	// used list's method
-	public List<String> whatShouldIDo(Date when) {
+	public List<Task> whatShouldIDo(Date when) {
 		if(when.before(new Date())) {
 			return taskList.subList(0, 3);
 		} else {
 			return taskList.subList(3, 5);
 		}
 	}
-	
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		System.out.println("What should I do intergalactic commander?");
-		
-		Assistant galacticAssistant = new Assistant();
-		// Ctrl+1 helps with method creation
-		galacticAssistant.addTask("start the engine");
-		
-		showMeTasks(galacticAssistant);
-		
-		System.out.println("What should I do my duke?");
-		
-		Assistant fantasyAssistant = new Assistant("call Robert Baratheon", "prepare tournament",
-				"talk to Daenerys", "jump into the ship",
-				"don't forget your sword");
-		
-		showMeTasks(fantasyAssistant);
-	}
 
-	// do not forget to name parameters reasonably!
-	private void addTask(String task) {
-		// other method of List... put it as a first element
-		taskList.add(0, task);
+	public void addTask(String dueDate, String text) {
+		// and util class used here
+		Task task = new Task(Util.readWhen(dueDate), text);
+		taskList.add(task);
 	}
-
-	private static void showMeTasks(Assistant galacticAssistant) {
-		Date when = readWhen();
-		
-		List<String> taskList = galacticAssistant.whatShouldIDo(when);
-		
-		for(String task : taskList) {
-			System.out.println("* " + task);
-		}
-	}
-
-	private static Date readWhen() {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-		Date when;
-		try {
-			when = formatter.parse("02.12.2014");
-		} catch (ParseException e) {
-			throw new RuntimeException("Houston ...", e);
-		}
-		return when;
-	}
-
 }
