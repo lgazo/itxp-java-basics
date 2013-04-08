@@ -9,3 +9,5 @@ Assistant project lecture tag order:
 * instances-and-constructors
 * list-interface
 * separation-of-concerns
+
+Shared space: https://docs.google.com/a/seges.sk/document/d/16obhYNbiGnJxQceNJCAY2rUO9Ko-ODZgdf5G4c2ohmA/edit
