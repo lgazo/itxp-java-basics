@@ -1,0 +1,47 @@
+<html ng-app="myApp">
+	<head>
+
+		<link rel="stylesheet" href="styles/main.css" />
+
+		<script type="text/javascript" src="lib/angular.min.js"></script>
+		<script type="text/javascript" src="lib/angular-resource.min.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/services.js"></script>
+	</head>
+	<body>
+		<div id="container" ng-controller="TodoCtrl">
+			<!-- 
+				String[] todoList = new String[] {"aa","bb"};
+				
+				for(String task : todoList) {
+					System.out.println("* " + task);
+				}
+			 -->
+			 
+			 <!--
+			 	1. vypisovat k tasku aj datum vytvorenia -> transformacia na objekt
+			 	2. editovanie tasku
+			 	2a. zmena datumu na datum poslednej aktualizacie
+			 	3. zmazanie tasku
+			 	4. skraslenie todo listu
+			 	5. moduly -> servis
+			  -->
+			 
+			<ul>
+				<li ng-repeat="task in todoList">
+					<span class="label" ng-click="select($index)">{{ task.label }}</span>
+				 	<span class="created">{{ task.created }}</span>
+				</li>
+			</ul>
+		
+			<form name="formularik">
+				<input name="taskName" type="text" ng-model="taskName5" />
+				<input name="submit" type="button" ng-click="add()" value="Novy" />
+				<input type="button" ng-click="edit()" value="Uloz" ng-disabled="selectedIndex == null  || taskName5 == '' " />
+				<input type="button" ng-click="remove()" value="Zmaz" />
+			</form>
+			
+		</div>
+	
+	</body>
+</html>

@@ -1,0 +1,12 @@
+#container {
+	border: 1px solid red;
+}
+
+.label {
+	font-weight: bold;
+}
+
+.created {
+	color: gray;
+	font-size: x-small;
+}
