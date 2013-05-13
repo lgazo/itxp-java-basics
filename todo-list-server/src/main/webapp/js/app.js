@@ -14,13 +14,13 @@ angular.module("myApp.controllers", []).controller(
 					}
 
 					
-					var task1 = createTask("first task");
-					var task2 = createTask("second task");
-					var task3 = createTask("third task");
-					
-					$scope.todoList = [ task1, task2, task3 ];
-					
-					//$scope.todoList = todoService.query();
+//					var task1 = createTask("first task");
+//					var task2 = createTask("second task");
+//					var task3 = createTask("third task");
+//					
+//					$scope.todoList = [ task1, task2, task3 ];
+										
+					$scope.todoList = todoService.query();
 					
 					$scope.select = function (index) {
 						$scope.taskName5 = $scope.todoList[index].label;
@@ -41,9 +41,12 @@ angular.module("myApp.controllers", []).controller(
 
 						// List<String> todoList = new ArrayList();
 						// todoList.add("todo todo");
+						var task = createTask($scope.taskName5);
+						
+						$scope.todoList.push(task);
 
-						$scope.todoList.push(createTask($scope.taskName5));
-						// todoService.save(createTask($scope.taskName5));
+						todoService.save(task);
+						
 						$scope.taskName5 = "";
 						
 						
